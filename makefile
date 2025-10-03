@@ -1,6 +1,7 @@
 SCR		=	get_next_line_utils.c\
 			get_next_line.c\
 			parsing/get_input.c\
+			parsing/check.c\
 			main.c\
 
 OBJS	=	${SCR:.c=.o}
