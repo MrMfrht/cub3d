@@ -6,23 +6,11 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:07:24 by fdaher            #+#    #+#             */
-/*   Updated: 2025/09/30 14:33:07 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/03 15:24:34 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	check_cub(char *str)
-{
-	char	*extension;
-
-	extension = ft_strrchr(str, '.');
-	if (!extension)
-		return (0);
-	if (ft_strncmp(extension, ".cub", 4) == 0)
-		return (1);
-	return (0);
-}
 
 // free array
 void	free_array(char **array)
@@ -78,6 +66,23 @@ char	**array_join(char **old_array, char *str_add)
 	return (res);
 }
 
+char	*remove_enter(char *old_line)
+{
+	int		length;
+	char	*new_line;
+
+	length = ft_strlen(old_line);
+	// if (old_line[length - 1] == '\n')
+	if (old_line[0] != '\n' && old_line[length - 1] == '\n')
+	{
+		new_line = ft_strndup(old_line, length - 1);
+		free(old_line);
+		if (!new_line)
+			return (NULL);
+		return(new_line);
+	}
+	return (old_line);
+}
 // read all the file with spaces and \n 
 char	**read_from_file(const char *s)
 {
@@ -92,24 +97,34 @@ char	**read_from_file(const char *s)
 	line = get_next_line(fd);
 	while (line)
 	{
-		arr = array_join(arr, line);
-		free(line);
+		line = remove_enter(line);
+		if (line != NULL)
+		{
+			arr = array_join(arr, line);
+			free(line);
+		}
 		line = get_next_line(fd);
 	}
 	close (fd);
 	return (arr);
 }
 
-// int main(int argc, char **argv)
-// {
-// 	int i = 0;
-// 	char **array;
+int main(int argc, char **argv)
+{
+	int i = 0;
+	char **array;
 
-// 	(void) argc;
-// 	array = read_from_file(argv[1]);
-// 	while (array[i])
-// 	{
-// 		printf("%s",array[i]);
-// 		i++;
-// 	}
-// }
+	(void) argc;
+	array = read_from_file(argv[1]);
+	while (array[i] != NULL)
+	{
+		if (array[3] == NULL)
+			printf("hiiiiiiii");
+		else
+			printf("%s",array[i]);
+		// printf("\n");
+		i++;
+	}
+	printf("\n i = %d", i);
+	free_array(array);
+}
