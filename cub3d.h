@@ -22,6 +22,11 @@
 # include "minilibx-linux/mlx_int.h"
 # include "get_next_line.h"
 
+typedef struct s_cub
+{
+    char**map;
+} t_cub
+
 
 int		check_cub(char *str);
 void	free_array(char **array);
