@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:02:18 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/07 11:15:22 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/07 14:04:06 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 // # include <stdio.h>
 // int	main(void)
 // {
-// 	const char	*set;
-// 	const char	*s1;
-// 	// s1  = "   middle space   here   ";
-// 	// set = " ";
-// 	printf("->%s<-", ft_strtrim(s1,set));
+// 	char	*set;
+// 	char	*s1;
+// 	s1  = "middle space   here    ";
+// 	set = " ";
+// 	printf("->%s<-", ft_strtrim(s1," "));
 // }
