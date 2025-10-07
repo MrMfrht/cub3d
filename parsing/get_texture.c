@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:08:12 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/07 12:52:19 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/07 13:08:41 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,14 @@ static int	is_texture(char *line)
 	return (-1);
 }
 
-int	put_texture(char *line, t_texture *node)
+void	put_nswe(char *test, t_texture *node)
 {
-	int	i;
+	if (!node)
+}
+
+void	put_texture(char *line, t_texture *node)
+{
+	int		i;
 	char	*start;
 	char	*text;
 
@@ -49,18 +54,20 @@ int	put_texture(char *line, t_texture *node)
 		return ;
 	if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
 		|| ft_strncmp(line, "WE", 2) == 0 || ft_strncmp(line, "EA", 2) == 0)
-		{
-			start  = start + 2;
-			i = 2
-		}
+	{
+		start = start + 2;
+		i = 2;
+	}
 	else
 		start++;
-	while(*start == ' ')
+	while (*start == ' ')
 		start++;
 	text = ft_strdup(start);
 	free(line);
 	if (i == 1)
-		return(ft_putendl_fd("Error\nTHE"))
+		// split nb
+		else
+	// text
 }
 
 // !!!!!!!!!!!!!!!!!i work
@@ -77,14 +84,18 @@ int	get_texture(char **array, t_texture *node)
 	{
 		line = ft_strtrim(array[i], " ");
 		if (line[0] == '\n')
+		{
 			i++;
-		else if (is_texture(line) == 0)
+			free(line);
+			continue;
+		}
+		else if ()
 		{
 			// put the texture
 		}
 		else if (flag < 4 || (flag = 4 && line[0] != 1))
-			// returnput_error("Error\n you need 4 textures!");
-		free(line)
+			// return(free(line), ,put_error("Error\n you need 4 textures!");
+			free(line)
 	}
 	return (i);
 }
