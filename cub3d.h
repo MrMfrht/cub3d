@@ -6,7 +6,7 @@
 /*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/07 13:05:52 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/10/07 13:14:13 by mofarhat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,15 @@
 typedef struct s_cub
 {
     char**map;
+	t_texture texture;
 } t_cub;
+
+typedef struct s_color
+{
+	int red;
+	int green;
+	int blue;
+} t_color
 
 typedef struct s_texture
 {
@@ -37,8 +45,8 @@ typedef struct s_texture
 	char	*so;
 	char	*we;
 	char	*ea;
-	char	*f;
-	char	*c;
+	t_color	*f;
+	t_color	*c;
 }	t_texture;
 
 // ...........check.c
