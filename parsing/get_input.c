@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:07:24 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/03 15:24:34 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/07 10:10:12 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char	**array_join(char **old_array, char *str_add)
 	return (res);
 }
 
-char	*remove_enter(char *old_line)
+// remove the '\n' from the end of line if exist
+static char	*remove_enter(char *old_line)
 {
 	int		length;
 	char	*new_line;
@@ -79,10 +80,11 @@ char	*remove_enter(char *old_line)
 		free(old_line);
 		if (!new_line)
 			return (NULL);
-		return(new_line);
+		return (new_line);
 	}
 	return (old_line);
 }
+
 // read all the file with spaces and \n 
 char	**read_from_file(const char *s)
 {
@@ -109,22 +111,22 @@ char	**read_from_file(const char *s)
 	return (arr);
 }
 
-int main(int argc, char **argv)
-{
-	int i = 0;
-	char **array;
+// int main(int argc, char **argv)
+// {
+// 	int i = 0;
+// 	char **array;
 
-	(void) argc;
-	array = read_from_file(argv[1]);
-	while (array[i] != NULL)
-	{
-		if (array[3] == NULL)
-			printf("hiiiiiiii");
-		else
-			printf("%s",array[i]);
-		// printf("\n");
-		i++;
-	}
-	printf("\n i = %d", i);
-	free_array(array);
-}
+// 	(void) argc;
+// 	array = read_from_file(argv[1]);
+// 	while (array[i] != NULL)
+// 	{
+// 		if (array[3] == NULL)
+// 			printf("hiiiiiiii");
+// 		else
+// 			printf("%s",array[i]);
+// 		// printf("\n");
+// 		i++;
+// 	}
+// 	printf("\n i = %d", i);
+// 	free_array(array);
+// }

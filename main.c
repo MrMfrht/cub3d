@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:31:13 by fdaher            #+#    #+#             */
-/*   Updated: 2025/09/30 13:00:58 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/07 10:45:51 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 // int	main(int argc, char **argv)
 // {
+//     char **input;
+//     t_texture   *node_tex;
+//     t_cub *cub;
 // 	if (argc != 2 || argv[1][0] == '\0' || check_ber(argv[1]) == 0)
 // 		return (1);
 // 	//get__input (the input "___.cub")

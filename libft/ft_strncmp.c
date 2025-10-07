@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:23:33 by fdaher            #+#    #+#             */
-/*   Updated: 2024/06/14 17:07:47 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/07 11:36:04 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 // #include <stdio.h>
 // int main()
 // {
-// 	const char s1[] = "abaqq";
-// 	const char s2[] = "abzqq";
-// 	printf("%d", ft_strncmp(s1, s2, 3));
+// 	const char s1[] = "ea f";
+// 	const char s2[] = "ea";
+// 	if (ft_strncmp(s1, s2, 2))
+// 		printf("hiiii");
 // }
