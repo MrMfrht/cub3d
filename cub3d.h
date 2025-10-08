@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/08 14:49:41 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/08 15:14:19 by mofarhat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-// Structs
+
+#  define SCREEN_WIDTH 800
+#  define SCREEN_HEIGHT 700// Structs
+
 
 typedef struct s_map
 {
@@ -58,6 +61,7 @@ typedef struct s_texture
 	t_color		*c;
 }				t_texture;
 
+
 typedef struct s_cub
 {
 	t_map		*map;
@@ -65,6 +69,7 @@ typedef struct s_cub
 	void		*mlx;
 	void		*win;
 	t_image		*images;
+	t_image *window_image;
 }				t_cub;
 
 /////////////////////////////////////parsing

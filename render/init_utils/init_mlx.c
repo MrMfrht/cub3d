@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_ mlx.c                                        :+:      :+:    :+:   */
+/*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 13:28:46 by mofarhat          #+#    #+#             */
-/*   Updated: 2025/10/08 12:29:45 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/10/08 15:15:21 by mofarhat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,62 +24,12 @@ char	**init_texture_path(t_cub *cub)
 	return (text_paths);
 }
 
-void	error_exit(t_game *game, char *s)
+void	error_exit(t_cub *cub, char *s)
 {
-	free_cub(game);
+	free(cub);
 	perror(s);
 	exit(EXIT_FAILURE);
 }
-
-void init_cub_images(t_cub *cub)
-{
-	cub->images = malloc(4 * sizeof(t_image));
-	if (!cub->images)
-		return (1);
-	int i = 0;
-	while(i < 4)
-	{
-		cub->images.img_ptr = NULL;
-		cub->images->img_data = NULL;
-		cub->image->width = 0;
-		cub->image->height = 0;
-		cub->image->bpp = 0;
-		cub->image->line_len = 0;
-		cub->image->endian = 0;
-		i++;
-	}
-}
-
-t_cub	*init_cub(t_texture *node, t_map *map)
-{
-	t_cub *cub = malloc(sizeof(t_cub));
-	cub->map = map;
-	cub->texture = node;
-	cub->mlx = NULL;
-	cub->win = NULL;
-	init_cub_images(t_cub);
-}
-
-int	init_mlx(t_cub *cub)
-{
-	cub->mlx = mlx_init();
-	if (!cub->mlx)
-		error_exit_(cub, "Error\nmlx_init failed");
-	return (0);
-}
-
-void	init_graphics(t_cub *cub)
-{
-	cub->mlx = init_mlx();
-	if(!cub->mlx)
-		error_exit(cub,"Error\nmlx_init failed");
-	if (render_textures(cub))
-		error_exit_(cub,"Error\nFailed to load textures");
-	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "mofaCub");
-	if (!game->win)
-		error_exit_(game, "Error\nWindow creation failed");
-}
-
 
 int	render_textures(t_cub *cub)
 {
@@ -91,12 +41,14 @@ int	render_textures(t_cub *cub)
 	while (i < 4)
 	{
 		cub->images[i].img_ptr = mlx_xpm_file_to_image(cub->mlx, text_paths[i],
-				&cub->images[i].width, &cub->images[i].height); //ptr to the image in memory
+				&cub->images[i].width, &cub->images[i].height);
+		// ptr to the image in memory
 		if (!cub->images[i].img_ptr)
 			return (1);
 		cub->images[i].img_data = mlx_get_data_addr(cub->images[i].img_ptr,
 				&cub->images[i].bpp, &cub->images[i].line_len,
-				&cub->images[i].endian); //ptr to the actual pixel data (raw bytes) of the image in memory
+				&cub->images[i].endian);
+		// ptr to the actual pixel data (raw bytes) of the image in memory
 		if (!cub->images[i].img_data)
 			return (1);
 		i++;
@@ -104,11 +56,85 @@ int	render_textures(t_cub *cub)
 	return (0);
 }
 
-int main(void)
+int	init_cub_images(t_cub *cub)
 {
-    t_cub cub;
-    // ...initialize cub, textures, map, etc...
-    init_graphics(&cub);
-    mlx_loop(cub.mlx); // This keeps the window open
-    return 0;
+	int	i;
+
+	cub->images = malloc(4 * sizeof(t_image));
+	if (!cub->images)
+		return (0);
+	i = 0;
+	while (i < 4)
+	{
+		cub->images[i].img_ptr = NULL;
+		cub->images[i].img_data = NULL;
+		cub->images[i].width = 0;
+		cub->images[i].height = 0;
+		cub->images[i].bpp = 0;
+		cub->images[i].line_len = 0;
+		cub->images[i].endian = 0;
+		i++;
+	}
+	return (1);
+}
+
+t_cub	*init_cub(t_texture *node, t_map *map)
+{
+	t_cub	*cub;
+
+	cub = malloc(sizeof(t_cub));
+	cub->map = map;
+	cub->texture = node;
+	cub->mlx = NULL;
+	cub->win = NULL;
+	init_cub_images(cub);
+	return (cub);
+}
+
+void	init_mlx(t_cub *cub)
+{
+	cub->mlx = mlx_init();
+	if (!cub->mlx)
+		error_exit(cub, "Error\nmlx_init failed");
+}
+
+void	init_graphics(t_cub *cub)
+{
+	init_mlx(cub);
+	if (!cub->mlx)
+		error_exit(cub, "Error\nmlx_init failed");
+	cub->win = mlx_new_window(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "mofaCub");
+	if (!cub->win)
+		error_exit(cub, "Error\nWindow creation failed");
+	cub->window_image->img_ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!cub->window_image->img_ptr)
+		error_exit(cub, "Error\nImage buffer creation failed");
+	
+}
+
+int	main(void)
+{
+	t_cub *cub;
+
+	// Allocate and initialize cub structure
+	cub = malloc(sizeof(t_cub));
+	if (!cub)
+	{
+		perror("Error\nMalloc failed");
+		return (1);
+	}
+	// Initialize all pointers to NULL
+	cub->map = NULL;
+	cub->texture = NULL;
+	cub->mlx = NULL;
+	cub->win = NULL;
+	cub->images = NULL;
+
+	// Initialize graphics (mlx and window)
+	init_graphics(cub);
+
+	// Start the event loop
+	mlx_loop(cub->mlx);
+
+	return (0);
 }
