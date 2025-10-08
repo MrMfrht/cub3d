@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:07:24 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/07 10:10:12 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/08 11:11:12 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static char	*remove_enter(char *old_line)
 	char	*new_line;
 
 	length = ft_strlen(old_line);
-	// if (old_line[length - 1] == '\n')
 	if (old_line[0] != '\n' && old_line[length - 1] == '\n')
 	{
 		new_line = ft_strndup(old_line, length - 1);

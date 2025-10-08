@@ -3,6 +3,8 @@ SCR		=	get_next_line_utils.c\
 			parsing/get_input.c\
 			parsing/check.c\
 			parsing/get_texture.c\
+			parsing/utils.c\
+			parsing/get_map.c\
 			main.c\
 
 OBJS	=	${SCR:.c=.o}

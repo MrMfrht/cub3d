@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/07 14:48:08 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/08 12:17:25 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,15 @@ int				check_xpm(char *str);
 char			*ft_strndup(const char *start, size_t len);
 t_texture		*create_texture(void);
 void			free_texture(t_texture *node);
+//.............utils.c----------------------------
+int				check_all_texture(t_texture *node);
 // ...........get_input.c------------------------
 void			free_array(char **array);
 char			**array_join(char **old_array, char *str_add);
 char			**read_from_file(const char *s);
 // ............get_texture.c----------------------
 int				get_texture(char **array, t_texture *node);
+// ............get_map.c--------------------------
+char	**get_map(char **input);
 
 #endif
