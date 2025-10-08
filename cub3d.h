@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/08 12:17:25 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/08 13:13:48 by mofarhat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,32 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+// Structs
+
+typedef struct s_map
+{
+	char		**map2d;
+	int			width;
+	int			height;
+}				t_map;
+
+typedef struct s_image
+{
+	void		*img_ptr;
+	char		*img_data;
+	int			width;
+	int			height;
+	int			bpp;
+	int			line_len;
+	int			endian;
+}				t_image;
+
 typedef struct s_color
 {
 	int			red;
 	int			green;
 	int			blue;
-}	t_color;
+}				t_color;
 
 typedef struct s_texture
 {
@@ -40,8 +60,11 @@ typedef struct s_texture
 
 typedef struct s_cub
 {
-	char		**map;
+	t_map		*map;
 	t_texture	*texture;
+	void		*mlx;
+	void		*win;
+	t_image		*images;
 }				t_cub;
 
 // ...........check.c---------------------------
@@ -59,6 +82,5 @@ char			**read_from_file(const char *s);
 // ............get_texture.c----------------------
 int				get_texture(char **array, t_texture *node);
 // ............get_map.c--------------------------
-char	**get_map(char **input);
 
 #endif
