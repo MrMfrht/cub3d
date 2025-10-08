@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/08 13:13:48 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/10/08 14:49:41 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_cub
 	t_image		*images;
 }				t_cub;
 
+/////////////////////////////////////parsing
 // ...........check.c---------------------------
 int				check_cub(char *str);
 int				check_xpm(char *str);
@@ -75,6 +76,7 @@ t_texture		*create_texture(void);
 void			free_texture(t_texture *node);
 //.............utils.c----------------------------
 int				check_all_texture(t_texture *node);
+int				 is_valid_map(char **input);
 // ...........get_input.c------------------------
 void			free_array(char **array);
 char			**array_join(char **old_array, char *str_add);
@@ -82,5 +84,7 @@ char			**read_from_file(const char *s);
 // ............get_texture.c----------------------
 int				get_texture(char **array, t_texture *node);
 // ............get_map.c--------------------------
-
+char			**get_map(char **input);
+// ............validation
+int				validate_map(char **map);
 #endif

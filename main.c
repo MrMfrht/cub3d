@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:31:13 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/08 12:27:35 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/08 14:57:28 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ int	main(int argc, char **argv)
 	if (argc != 2 || argv[1][0] == '\0' || check_cub(argv[1]) == 0)
 		return (1);
 	input = read_from_file(argv[1]);
-	// printf("hiiiiiiiiiiiiii input\n");
+	printf("hiiiiiiiiiiiiii input\n");
 	node_tex = create_texture();
 	if (get_texture(input, node_tex) < 0)
 		return (free_array(input), 1);
 	// print_node_texture(node_tex);
+	if (is_valid_map(input) < 0)
+		return (free_array(input), free_texture(node_tex), 1);
+	
 	map = get_map(input);
 	print_map(map);
 	free_array(map);

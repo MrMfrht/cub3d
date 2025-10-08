@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:08:12 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/08 11:11:59 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/08 15:10:02 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static int	parse_texture_path(char *line, t_texture *node, char **texture)
 
 static int	parse_line_texture(char *line, t_texture *node)
 {
+	
+	
 	if (ft_strncmp(line, "NO", 2) == 0)
 		return (parse_texture_path(line, node, &node->no));
 	else if (ft_strncmp(line, "SO", 2) == 0)
@@ -88,7 +90,9 @@ static int	parse_line_texture(char *line, t_texture *node)
 		return (parse_color(line, node, &node->f));
 	else if (is_color(line) && line[0] == 'C')
 		return (parse_color(line, node, &node->c));
-	else if (line[0] != '\n')
+	else if (line[0] != '\n' && line[0] != '1')
+
+	
 	{
 		printf("Error\n\"%c\" not texture charactere\n", line[0]);
 		free_texture(node);
@@ -107,7 +111,7 @@ int	get_texture(char **array, t_texture *node)
 	i = 0;
 	j = 1;
 	if (!array || !node)
-		return (printf("Error\n invalid arg in get_texture"), -1);
+		return (printf("Error\n invalid arg in get_texture\n"), -1);
 	while (array[i] && array[i][0] != '1')
 	{
 		line = ft_strtrim(array[i], " ");

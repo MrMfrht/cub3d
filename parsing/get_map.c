@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 11:01:47 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/08 13:04:33 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/08 13:56:26 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,31 @@ static int	is_invalid_line(char *line)
 	return (0);
 }
 
+static int	process_map_line(char **input, int i, char ***map)
+{
+	int	j;
+
+	if (is_empty_line(input[i]) && input[i + 1]
+		&& !is_empty_line(input[i + 1]))
+		return (printf("Error\nEmptyline map\n"), free_array(*map), -1);
+	if (is_invalid_line(input[i]))
+		return (printf("Error\nInvalid character in map line: \"%s\"\n",
+				input[i]), free_array(*map), -1);
+	j = 0;
+	while (input[i][j] == ' ' || input[i][j] == '\t' || input[i][j] == '\n')
+		j++;
+	if (input[i][j] == '1')
+		*map = array_join(*map, input[i]);
+	else if (input[i][j])
+		return (printf("Error\nthe map not closed: %s\n", input[i]),
+			free_array(*map), -1);
+	return (0);
+}
+
+// get the map if it doesn't contain \n and starting by 1 
 char	**get_map(char **input)
 {
 	int		i;
-	int		j;
 	char	**map;
 	int		in_map;
 
@@ -62,21 +83,12 @@ char	**get_map(char **input)
 	in_map = 0;
 	while (input[i])
 	{
-		j = 0;
 		if (input[i][0] == '1')
 			in_map = 1;
 		if (in_map)
 		{
-			if (is_empty_line(input[i]) && !is_empty_line(input[i + 1]))
-				return (printf("Error\nEmptyline map\n"), free_array(map),
-					NULL);
-			if (is_invalid_line(input[i]))
-				return (printf("Error\nInvalid character in map line: \"%s\"\n",
-						input[i]), free_array(map), NULL);
-			while (input[i][j] == ' ' || input[i][j] == '\t')
-				j++;
-			if (input[i][j] == '1' || input[i][j] == '0')
-				map = array_join(map, input[i]);
+			if (process_map_line(input, i, &map) < 0)
+				return (NULL);
 		}
 		i++;
 	}
@@ -84,10 +96,37 @@ char	**get_map(char **input)
 		printf("Error\nNo map found\n");
 	return (map);
 }
-
 // char	**get_map(char **input)
 // {
+// 	int		i;
+// 	int		j;
 // 	char	**map;
+// 	int		in_map;
 
+// 	i = 0;
+// 	map = NULL;
+// 	in_map = 0;
+// 	while (input[i])
+// 	{
+// 		j = 0;
+// 		if (input[i][0] == '1')
+// 			in_map = 1;
+// 		if (in_map)
+// 		{
+// 			if (is_empty_line(input[i]) && !is_empty_line(input[i + 1]))
+// 				return (printf("Error\nEmptyline map\n"), free_array(map),
+// 					NULL);
+// 			if (is_invalid_line(input[i]))
+// 				return (printf("Error\nInvalid character in map line: \"%s\"\n",
+// 						input[i]), free_array(map), NULL);
+// 			while (input[i][j] == ' ' || input[i][j] == '\t')
+// 				j++;
+// 			if (input[i][j] == '1' || input[i][j] == '0')
+// 				map = array_join(map, input[i]);
+// 		}
+// 		i++;
+// 	}
+// 	if (!map)
+// 		printf("Error\nNo map found\n");
 // 	return (map);
 // }
