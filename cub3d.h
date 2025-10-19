@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/08 15:14:19 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/10/19 15:30:48 by mofarhat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-
-#  define SCREEN_WIDTH 800
-#  define SCREEN_HEIGHT 700// Structs
-
+# define SCREEN_WIDTH 800
+# define SCREEN_HEIGHT 700 // Structs
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define MAX_KEYS 256
+# define KEY_ESC 65307
 
 typedef struct s_map
 {
@@ -61,6 +67,26 @@ typedef struct s_texture
 	t_color		*c;
 }				t_texture;
 
+typedef struct s_keys
+{
+	int			w;
+	int			s;
+	int			a;
+	int			d;
+	int			left;
+	int			right;
+	int			esc;
+}				t_keys;
+
+typedef struct s_player
+{
+	double		x;
+	double		y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+}				t_player;
 
 typedef struct s_cub
 {
@@ -69,7 +95,9 @@ typedef struct s_cub
 	void		*mlx;
 	void		*win;
 	t_image		*images;
-	t_image *window_image;
+	t_image		*window_image;
+	t_keys		keys;
+	t_player	player;
 }				t_cub;
 
 /////////////////////////////////////parsing
@@ -81,7 +109,7 @@ t_texture		*create_texture(void);
 void			free_texture(t_texture *node);
 //.............utils.c----------------------------
 int				check_all_texture(t_texture *node);
-int				 is_valid_map(char **input);
+int				is_valid_map(char **input);
 // ...........get_input.c------------------------
 void			free_array(char **array);
 char			**array_join(char **old_array, char *str_add);
@@ -92,4 +120,8 @@ int				get_texture(char **array, t_texture *node);
 char			**get_map(char **input);
 // ............validation
 int				validate_map(char **map);
+void			free_cub(t_cub *cub);
+int				handle_keyrelease(int keycode, t_cub *cub);
+int				handle_keypress(int keycode, t_cub *cub);
+
 #endif

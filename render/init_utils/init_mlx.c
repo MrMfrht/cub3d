@@ -6,7 +6,7 @@
 /*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 13:28:46 by mofarhat          #+#    #+#             */
-/*   Updated: 2025/10/08 15:15:21 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/10/19 15:30:56 by mofarhat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,30 @@ void	init_mlx(t_cub *cub)
 		error_exit(cub, "Error\nmlx_init failed");
 }
 
+void draw_texture_debug(t_cub *cub)
+{
+	int i;
+	t_image *image_tex;
+
+	i = 0;
+	while(i < 4)
+	{
+		image_tex = &cub->images[i];
+		if(!image_tex->img_ptr)
+			error_exit(cub,"Error: Missing texture image");
+		mlx_put_image_to_window(cub->mlx, cub->win, image_tex->img_ptr, (i % 2)
+			* image_tex->width, (i / 2) * image_tex->height);
+		i++;
+	}
+}
+
+int	close_window(t_cub *cub)
+{
+	if (cub->window_image->img_ptr)
+		free_cub(cub);
+	exit(0);
+}
+
 void	init_graphics(t_cub *cub)
 {
 	init_mlx(cub);
@@ -109,7 +133,15 @@ void	init_graphics(t_cub *cub)
 	cub->window_image->img_ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!cub->window_image->img_ptr)
 		error_exit(cub, "Error\nImage buffer creation failed");
-	
+	cub->window_image->img_data = mlx_get_data_addr(cub->window_image->img_ptr, &cub->window_image->bpp, &cub->window_image->line_len,
+			&cub->window_image->endian);
+	if (!cub->window_image->img_data || cub->window_image->line_len <= 0 || cub->window_image->bpp <= 0)
+		error_exit(cub, "Failed to get image data address");
+	ft_memset(&cub->keys, 0, sizeof(t_keys));
+	mlx_hook(cub->win, 17, 0, close_window, cub);
+	mlx_hook(cub->win, 2, 1L << 0, handle_keypress, cub);
+	mlx_hook(cub->win, 3, 1L << 1, handle_keyrelease, cub);
+	draw_texture_debug(cub);
 }
 
 int	main(void)
