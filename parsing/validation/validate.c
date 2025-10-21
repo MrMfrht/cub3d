@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:49:57 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/08 15:00:21 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/21 10:20:48 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,6 @@ int	validate_map(char **map)
 	if (!validate_characters_and_player(map))
 		return (0);
 	if (!validate_map_borders(map))
-		return (0);
+		return (printf("Error\n Invaled map borders or player's path\n"), 0);
 	return (1);
 }

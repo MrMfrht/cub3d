@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:08:12 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/08 15:10:02 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/21 15:03:50 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,23 @@ static int	parse_texture_path(char *line, t_texture *node, char **texture)
 		start++;
 	trim = ft_strtrim(start, " ");
 	if (!check_xpm(trim))
-		return (free_texture(node),
-			printf("Error\n\"%s\" Not .xpm file\n", trim), free(trim), -1);
+		return (free_texture(node), printf("Error\n\"%s\" Not .xpm file\n",
+				trim), free(trim), -1);
 	fd = open(trim, O_RDONLY);
 	if (fd < 0)
 		return (close(fd), free_texture(node), free(line),
 			printf("Error\nthe \"%s\" can't open\n", trim), free(trim), -1);
 	close(fd);
-	*texture = trim;
+	if (!(*texture))
+		*texture = trim;
+	else
+		return (free_texture(node),
+			printf("Error\nextra_texture\n"), free(trim), -1);
 	return (0);
 }
 
 static int	parse_line_texture(char *line, t_texture *node)
 {
-	
-	
 	if (ft_strncmp(line, "NO", 2) == 0)
 		return (parse_texture_path(line, node, &node->no));
 	else if (ft_strncmp(line, "SO", 2) == 0)
@@ -91,10 +93,12 @@ static int	parse_line_texture(char *line, t_texture *node)
 	else if (is_color(line) && line[0] == 'C')
 		return (parse_color(line, node, &node->c));
 	else if (line[0] != '\n' && line[0] != '1')
-
-	
 	{
-		printf("Error\n\"%c\" not texture charactere\n", line[0]);
+		if (line[0] == '0' || line[0] == 'N' || line[0] == 'W'
+			|| line[0] == 'E' || line[0] == 'S')
+			printf("Error\nMap not closed:\"%s\"\n", line);
+		else
+			printf("Error\n\"%c\" not texture charactere\n", line[0]);
 		free_texture(node);
 		return (-1);
 	}

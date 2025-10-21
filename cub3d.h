@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/19 15:30:48 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/10/21 14:53:48 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_color
 	int			red;
 	int			green;
 	int			blue;
+	int			value;					// i want use a function "<<"
 }				t_color;
 
 typedef struct s_texture
@@ -110,6 +111,7 @@ void			free_texture(t_texture *node);
 //.............utils.c----------------------------
 int				check_all_texture(t_texture *node);
 int				is_valid_map(char **input);
+int				find_map_start(char **input);
 // ...........get_input.c------------------------
 void			free_array(char **array);
 char			**array_join(char **old_array, char *str_add);
@@ -118,6 +120,8 @@ char			**read_from_file(const char *s);
 int				get_texture(char **array, t_texture *node);
 // ............get_map.c--------------------------
 char			**get_map(char **input);
+// ............get_rectangle.c--------------------------
+char			**get_rectangle_map(char **input);
 // ............validation
 int				validate_map(char **map);
 void			free_cub(t_cub *cub);

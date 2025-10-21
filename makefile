@@ -5,6 +5,7 @@ SCR		=	get_next_line_utils.c\
 			parsing/get_texture.c\
 			parsing/utils.c\
 			parsing/get_map.c\
+			parsing/get_rectangle.c\
 			parsing/validation/validate.c\
 			main.c\
 

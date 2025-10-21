@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 11:01:31 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/08 14:28:33 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/10/21 11:36:22 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,24 @@ int	is_valid_map(char **input)
 		return (free_array(map), -1);
 	free_array(map);
 	return (1);
+}
+
+int	find_map_start(char **input)
+{
+	int		i;
+	char	*trim;
+
+	i = 0;
+	while (input[i])
+	{
+		trim = ft_strtrim(input[i], " ");
+		if (trim && trim[0] == '1')
+		{
+			free(trim);
+			return (i);
+		}
+		free(trim);
+		i++;
+	}
+	return (-1);
 }
