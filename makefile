@@ -7,6 +7,7 @@ SCR		=	get_next_line_utils.c\
 			parsing/get_map.c\
 			parsing/get_rectangle.c\
 			parsing/validation/validate.c\
+			after_parsing/init_map_player.c\
 			main.c\
 
 OBJS	=	${SCR:.c=.o}

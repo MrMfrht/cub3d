@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/21 14:53:48 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/11/04 11:59:02 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,21 @@ typedef struct s_map
 	int			height;
 }				t_map;
 
+// img_ptr:pointer to image in MLX
+// img_data:pointer to pixel memory (raw bytes)
+// bpp:bits per pixel (usually 32)
+// line_len:number of bytes in a single row
+// endian:0 = little endian, 1 = big endian
+// endian:tells how pixel color data is stored in memory.
 typedef struct s_image
 {
 	void		*img_ptr;
 	char		*img_data;
 	int			width;
 	int			height;
-	int			bpp;
-	int			line_len;
-	int			endian;
+	int			bpp;			//
+	int			line_len;		//
+	int			endian;			//
 }				t_image;
 
 typedef struct s_color
@@ -123,9 +129,20 @@ char			**get_map(char **input);
 // ............get_rectangle.c--------------------------
 char			**get_rectangle_map(char **input);
 // ............validation
+int				find_player_position(char **map, int *x, int *y);
 int				validate_map(char **map);
+
+/////////////////////////////////////render
 void			free_cub(t_cub *cub);
 int				handle_keyrelease(int keycode, t_cub *cub);
 int				handle_keypress(int keycode, t_cub *cub);
+
+
+/////////////////////////////////////after_parsing
+// ............init_map_player.c
+t_map			*init_map(char **input);
+void			free_tmap(t_map *map);
+t_player		init_player(t_map *map);
+// .............init_image.c
 
 #endif

@@ -1,11 +1,11 @@
 
 
-NO                   ./picture.xpm
+NO                   ./image/green_wall.xpm
 
-      SO        ./picture.xpm
+      SO        ./image/green_wall.xpm
 
-   WE ./picture.xpm 
-EA ./picture.xpm   
+   WE ./image/stone_wall.xpm
+EA  ./image/stone_wall.xpm  
 
 F 220,100,0
 C 225,30,0

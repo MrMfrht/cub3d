@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 13:28:46 by mofarhat          #+#    #+#             */
-/*   Updated: 2025/10/19 15:30:56 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/11/03 10:47:54 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,17 +98,17 @@ void	init_mlx(t_cub *cub)
 		error_exit(cub, "Error\nmlx_init failed");
 }
 
-void draw_texture_debug(t_cub *cub)
+void	draw_texture_debug(t_cub *cub)
 {
-	int i;
-	t_image *image_tex;
+	int		i;
+	t_image	*image_tex;
 
 	i = 0;
-	while(i < 4)
+	while (i < 4)
 	{
 		image_tex = &cub->images[i];
-		if(!image_tex->img_ptr)
-			error_exit(cub,"Error: Missing texture image");
+		if (!image_tex->img_ptr)
+			error_exit(cub, "Error: Missing texture image");
 		mlx_put_image_to_window(cub->mlx, cub->win, image_tex->img_ptr, (i % 2)
 			* image_tex->width, (i / 2) * image_tex->height);
 		i++;
@@ -130,12 +130,15 @@ void	init_graphics(t_cub *cub)
 	cub->win = mlx_new_window(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "mofaCub");
 	if (!cub->win)
 		error_exit(cub, "Error\nWindow creation failed");
-	cub->window_image->img_ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	cub->window_image->img_ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH,
+			SCREEN_HEIGHT);
 	if (!cub->window_image->img_ptr)
 		error_exit(cub, "Error\nImage buffer creation failed");
-	cub->window_image->img_data = mlx_get_data_addr(cub->window_image->img_ptr, &cub->window_image->bpp, &cub->window_image->line_len,
+	cub->window_image->img_data = mlx_get_data_addr(cub->window_image->img_ptr,
+			&cub->window_image->bpp, &cub->window_image->line_len,
 			&cub->window_image->endian);
-	if (!cub->window_image->img_data || cub->window_image->line_len <= 0 || cub->window_image->bpp <= 0)
+	if (!cub->window_image->img_data || cub->window_image->line_len <= 0
+		|| cub->window_image->bpp <= 0)
 		error_exit(cub, "Failed to get image data address");
 	ft_memset(&cub->keys, 0, sizeof(t_keys));
 	mlx_hook(cub->win, 17, 0, close_window, cub);
