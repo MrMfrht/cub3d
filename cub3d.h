@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/11/04 11:59:02 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/11/08 14:01:14 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 # include "./libft/libft.h"
 # include "./minilibx-linux/mlx.h"
 # include "get_next_line.h"
-# include "minilibx-linux/mlx_int.h"
+# include "./minilibx-linux/mlx_int.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <math.h>
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 700 // Structs
@@ -51,9 +52,9 @@ typedef struct s_image
 	char		*img_data;
 	int			width;
 	int			height;
-	int			bpp;			//
-	int			line_len;		//
-	int			endian;			//
+	int bpp;      //
+	int line_len; //
+	int endian;   //
 }				t_image;
 
 typedef struct s_color
@@ -61,7 +62,7 @@ typedef struct s_color
 	int			red;
 	int			green;
 	int			blue;
-	int			value;					// i want use a function "<<"
+	int value; // i want use a function "<<"
 }				t_color;
 
 typedef struct s_texture
@@ -107,6 +108,44 @@ typedef struct s_cub
 	t_player	player;
 }				t_cub;
 
+// camera_x;    X-coordinate on camera plane (-1 to 1)
+// ray_dir_x;  Ray direction vector X
+// ray_dir_y;  Ray direction vector Y
+// map_x;  Current grid square X in the map
+// map_y; Current grid square Y in the map
+// side_dist_x;  Distance to next x-side
+// side_dist_y;  Distance to next y-side
+// delta_dist_x; Distance between x-side crossings
+// delta_dist_y; Distance between y-side crossings
+// perp_wall_dist; (perpendicular) wall distance
+// step_x;  Step direction in x (+1 or -1)
+// step_y; Step direction in y (+1 or -1)
+// hit;  Becomes 1 when a wall is hit
+// side; 0 if hit x-side, 1 if y-side
+// line_height; Projected wall height on screen
+// draw_start; Top pixel of the wall on screen
+// draw_end; Bottom pixel of the wall on screen
+typedef struct s_ray
+{
+	double		camera_x;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+}				t_ray;
+
 /////////////////////////////////////parsing
 // ...........check.c---------------------------
 int				check_cub(char *str);
@@ -133,16 +172,30 @@ int				find_player_position(char **map, int *x, int *y);
 int				validate_map(char **map);
 
 /////////////////////////////////////render
-void			free_cub(t_cub *cub);
+t_cub	*init_cub(t_texture *node, t_map *map);
+void	init_mlx(t_cub *cub);
+
+// void			free_cub(t_cub *cub);
 int				handle_keyrelease(int keycode, t_cub *cub);
 int				handle_keypress(int keycode, t_cub *cub);
-
 
 /////////////////////////////////////after_parsing
 // ............init_map_player.c
 t_map			*init_map(char **input);
 void			free_tmap(t_map *map);
 t_player		init_player(t_map *map);
-// .............init_image.c
+// .............raycasting1.c
+void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void			draw_floor_ceiling(t_cub *cub);
+void			init_ray(t_ray *r, t_cub *cub, int x);
+void			perform_dda(t_ray *r, t_cub *cub);
+// .............raycasting2.c
+void			calculate_wall_distance(t_ray *r, t_player *p, t_cub *cub);
+void			draw_wall_slice(t_cub *cub, t_ray *r, int x);
+void			ray_casting(t_cub *cub);
+
+//main.c
+int				free_cub(void *param);
+
 
 #endif

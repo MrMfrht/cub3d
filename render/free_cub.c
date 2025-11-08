@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 13:42:02 by mofarhat          #+#    #+#             */
-/*   Updated: 2025/10/19 16:35:03 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/11/08 13:40:40 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,19 @@ static void	free_cub_resources(t_cub *cub)
 		free_image(cub->mlx, cub->window_image);
 }
 
-void	free_cub(t_cub *cub)
-{
-	if (!cub)
-		return ;
-	free_cub_resources(cub);
-	if (cub->win && cub->mlx)
-		mlx_destroy_window(cub->mlx, cub->win);
-	if (cub->mlx)
-	{
-		mlx_destroy_display(cub->mlx);
-		free(cub->mlx);
-	}
-	free(cub);
-}
+// void	free_cub(t_cub *cub)
+// {
+// 	if (!cub)
+// 		return ;
+// 	free_cub_resources(cub);
+// 	if (cub->win && cub->mlx)
+// 		mlx_destroy_window(cub->mlx, cub->win);
+// 	if (cub->mlx)
+// 	{
+// 		mlx_destroy_display(cub->mlx);
+// 		free(cub->mlx);
+// 	}
+// 	free(cub);
+// }
 
 
