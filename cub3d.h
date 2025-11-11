@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/11/08 14:01:14 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/11/11 09:56:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <unistd.h>
 # include <math.h>
 
-# define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 700 // Structs
+# define SCREEN_WIDTH 800					//1920
+# define SCREEN_HEIGHT 700 // Structs		//1080
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
@@ -46,6 +46,7 @@ typedef struct s_map
 // line_len:number of bytes in a single row
 // endian:0 = little endian, 1 = big endian
 // endian:tells how pixel color data is stored in memory.
+
 typedef struct s_image
 {
 	void		*img_ptr;
@@ -62,7 +63,7 @@ typedef struct s_color
 	int			red;
 	int			green;
 	int			blue;
-	int value; // i want use a function "<<"
+	int			value;
 }				t_color;
 
 typedef struct s_texture

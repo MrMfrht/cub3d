@@ -10,7 +10,6 @@ SCR		=	get_next_line_utils.c\
 			after_parsing/init_map_player.c\
 			after_parsing/raycasting1.c\
 			after_parsing/raycasting2.c\
-			render/init_utils/init_mlx.c\
 			main.c\
 
 OBJS	=	${SCR:.c=.o}
