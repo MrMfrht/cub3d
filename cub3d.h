@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/11/11 09:56:11 by user             ###   ########.fr       */
+/*   Updated: 2025/11/11 11:57:30 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ int				validate_map(char **map);
 t_cub	*init_cub(t_texture *node, t_map *map);
 void	init_mlx(t_cub *cub);
 
-// void			free_cub(t_cub *cub);
+void			free_cub(t_cub *cub);
 int				handle_keyrelease(int keycode, t_cub *cub);
 int				handle_keypress(int keycode, t_cub *cub);
 
@@ -196,7 +196,6 @@ void			draw_wall_slice(t_cub *cub, t_ray *r, int x);
 void			ray_casting(t_cub *cub);
 
 //main.c
-int				free_cub(void *param);
 
 
 #endif
