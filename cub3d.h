@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/11/11 11:57:30 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/05 18:03:24 by mofarhat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 # define CUB3D_H
 # include "./libft/libft.h"
 # include "./minilibx-linux/mlx.h"
-# include "get_next_line.h"
 # include "./minilibx-linux/mlx_int.h"
+# include "get_next_line.h"
 # include <fcntl.h>
+# include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <math.h>
 
-# define SCREEN_WIDTH 800					//1920
+# define SCREEN_WIDTH 800  // 1920
 # define SCREEN_HEIGHT 700 // Structs		//1080
 # define KEY_W 119
 # define KEY_A 97
@@ -173,8 +173,8 @@ int				find_player_position(char **map, int *x, int *y);
 int				validate_map(char **map);
 
 /////////////////////////////////////render
-t_cub	*init_cub(t_texture *node, t_map *map);
-void	init_mlx(t_cub *cub);
+t_cub			*init_cub(t_texture *node, t_map *map);
+int				init_mlx(t_cub *cub);
 
 void			free_cub(t_cub *cub);
 int				handle_keyrelease(int keycode, t_cub *cub);
@@ -195,7 +195,6 @@ void			calculate_wall_distance(t_ray *r, t_player *p, t_cub *cub);
 void			draw_wall_slice(t_cub *cub, t_ray *r, int x);
 void			ray_casting(t_cub *cub);
 
-//main.c
-
+// main.c
 
 #endif

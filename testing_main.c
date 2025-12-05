@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   testing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:20:32 by fdaher            #+#    #+#             */
-/*   Updated: 2025/11/11 11:24:03 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/05 18:03:24 by mofarhat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // -------------------- Free cub --------------------
-int	free_cub(t_cub *cub)
+void	free_cub(t_cub *cub)
 {
 	if (!cub)
-		return (0);
+		return ;
 	if (cub->images)
 	{
 		for (int i = 0; i < 4; i++)
@@ -31,7 +31,6 @@ int	free_cub(t_cub *cub)
 	if (cub->mlx)
 		cub->mlx = NULL;
 	free(cub);
-	return (0);
 }
 // -------------------- Error handler --------------------
 void	error_exit(t_cub *cub, char *s)
@@ -57,6 +56,9 @@ int	init_mlx(t_cub *cub)
 	cub->window_image = malloc(sizeof(t_image));
 	if (!cub->window_image)
 		return (-1);
+	/* ensure width/height are initialized so draw loops run correctly */
+	cub->window_image->width = SCREEN_WIDTH;
+	cub->window_image->height = SCREEN_HEIGHT;
 	cub->window_image->img_ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	cub->window_image->img_data = mlx_get_data_addr(cub->window_image->img_ptr,
 		&cub->window_image->bpp,
@@ -112,8 +114,7 @@ t_cub	*init_cub(t_texture *node, t_map *map)
 // -------------------- Init graphics --------------------
 void	init_graphics(t_cub *cub)
 {
-	if (init_mlx(cub) < 0)
-		error_exit(cub, "Failed to init MLX");
+	init_mlx(cub);
 	render_textures(cub);
 }
 
@@ -164,7 +165,7 @@ int	main(int argc, char **argv)
 	// Hooks
 	mlx_hook(cub->win, 2, 1L << 0, handle_keypress, cub);
 	mlx_hook(cub->win, 3, 1L << 1, handle_keyrelease, cub);
-	mlx_hook(cub->win, 17, 0, free_cub, cub);
+	mlx_loop_hook(cub->mlx, render_scene, cub);
 
 	mlx_loop(cub->mlx);
 

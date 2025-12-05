@@ -11,8 +11,7 @@ SCR		=	get_next_line_utils.c\
 			after_parsing/raycasting1.c\
 			after_parsing/raycasting2.c\
 			render/key_press.c\
-			main.c\
-			test_main.c\
+			testing_main.c\
 
 OBJS	=	${SCR:.c=.o}
 

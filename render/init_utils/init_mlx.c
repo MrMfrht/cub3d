@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 13:28:46 by mofarhat          #+#    #+#             */
-/*   Updated: 2025/11/11 11:35:19 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/05 08:33:01 by mofarhat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,29 +159,29 @@ void	init_graphics(t_cub *cub)
 	draw_texture_debug(cub);
 }
 
-// int	main(void)
-// {
-// 	t_cub *cub;
+int	main(void)
+{
+	t_cub *cub;
 
-// 	// Allocate and initialize cub structure
-// 	cub = malloc(sizeof(t_cub));
-// 	if (!cub)
-// 	{
-// 		perror("Error\nMalloc failed");
-// 		return (1);
-// 	}
-// 	// Initialize all pointers to NULL
-// 	cub->map = NULL;
-// 	cub->texture = NULL;
-// 	cub->mlx = NULL;
-// 	cub->win = NULL;
-// 	cub->images = NULL;
+	// Allocate and initialize cub structure
+	cub = malloc(sizeof(t_cub));
+	if (!cub)
+	{
+		perror("Error\nMalloc failed");
+		return (1);
+	}
+	// Initialize all pointers to NULL
+	cub->map = NULL;
+	cub->texture = NULL;
+	cub->mlx = NULL;
+	cub->win = NULL;
+	cub->images = NULL;
 
-// 	// Initialize graphics (mlx and window)
-// 	init_graphics(cub);
+	// Initialize graphics (mlx and window)
+	init_graphics(cub);
 
-// 	// Start the event loop
-// 	mlx_loop(cub->mlx);
+	// Start the event loop
+	mlx_loop(cub->mlx);
 
-// 	return (0);
-// }
+	return (0);
+}
