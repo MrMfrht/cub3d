@@ -20,6 +20,8 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
 	char	*dst;
 
+	if (!img || !img->img_data)
+		return ;
 	if (x < 0 || y < 0 || x >= img->width || y >= img->height)
 		return ;
 	dst = img->img_data + (y * img->line_len + x * (img->bpp / 8));
@@ -118,6 +120,14 @@ void	perform_dda(t_ray *r, t_cub *cub)
 			r->side_dist_y += r->delta_dist_y;
 			r->map_y += r->step_y;
 			r->side = 1;
+		}
+		/* Check bounds before indexing the map to avoid segfaults */
+		if (r->map_x < 0 || r->map_x >= cub->map->width
+			|| r->map_y < 0 || r->map_y >= cub->map->height)
+		{
+			/* Treat out-of-bounds as a wall hit to stop the ray */
+			hit = 1;
+			break;
 		}
 		if (cub->map->map2d[r->map_y][r->map_x] == '1')
 			hit = 1;

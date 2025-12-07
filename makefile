@@ -11,7 +11,11 @@ SCR		=	get_next_line_utils.c\
 			after_parsing/raycasting1.c\
 			after_parsing/raycasting2.c\
 			render/key_press.c\
-			testing_main.c\
+			render/render.c\
+			render/free_cub.c\
+			render/init_utils/init_mlx.c\
+			render/player.c\
+			main.c\
 
 OBJS	=	${SCR:.c=.o}
 

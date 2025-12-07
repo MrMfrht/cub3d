@@ -59,6 +59,10 @@ static int	get_wall_tex_x(t_cub *cub, t_ray *r, t_image *tex)
 		wall_x = cub->player.x + r->perp_wall_dist * r->ray_dir_x;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * tex->width);
+	if (tex_x < 0)
+		tex_x = 0;
+	if (tex_x >= tex->width)
+		tex_x = tex->width - 1;
 	return (tex_x);
 }
 
@@ -75,15 +79,46 @@ void	draw_wall_slice(t_cub *cub, t_ray *r, int x)
 	int		color;
 
 	tex = select_texture(cub, r);
+	if (!tex || !tex->img_data || tex->line_len <= 0 || tex->bpp <= 0)
+	{
+		fprintf(stderr, "draw_wall_slice: missing texture data (x=%d)\n", x);
+		return ;
+	}
 	tex_x = get_wall_tex_x(cub, r, tex);
 	y = r->draw_start;
+
+	if (!cub || !cub->window_image || !cub->window_image->img_data)
+	{
+		fprintf(stderr, "draw_wall_slice: invalid window image\n");
+		return ;
+	}
 	while (y < r->draw_end)
 	{
 		tex_y = (int)(((y - (-r->line_height / 2
-							+ cub->window_image->height / 2))
+						+ cub->window_image->height / 2))
 					* tex->height) / r->line_height);
-		color = *(int *)(tex->img_data + (tex_y * tex->line_len
-					+ tex_x * (tex->bpp / 8)));
+		if (tex_y < 0)
+			tex_y = 0;
+		if (tex_y >= tex->height)
+			tex_y = tex->height - 1;
+		/* defensive check before reading texture pixel */
+		if (!tex->img_data || tex->line_len <= 0 || tex->bpp <= 0)
+		{
+			fprintf(stderr, "draw_wall_slice: invalid texture buffer (x=%d,y=%d)\n", x, y);
+			break;
+		}
+		{
+			int bytes_per_pixel = tex->bpp / 8;
+			size_t offset = (size_t)tex_y * (size_t)tex->line_len + (size_t)tex_x * (size_t)bytes_per_pixel;
+			size_t buf_size = (size_t)tex->height * (size_t)tex->line_len;
+			if (offset + sizeof(int) > buf_size)
+			{
+				fprintf(stderr, "draw_wall_slice: texture read OOB (x=%d,y=%d,off=%zu,size=%zu)\n", x, y, offset, buf_size);
+				break;
+			}
+			color = *(int *)(tex->img_data + offset);
+		}
+		/* ensure window image bounds and buffer are valid inside my_mlx_pixel_put */
 		my_mlx_pixel_put(cub->window_image, x, y, color);
 		y++;
 	}

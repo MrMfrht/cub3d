@@ -97,6 +97,12 @@ typedef struct s_player
 	double		plane_y;
 }				t_player;
 
+typedef struct s_settings
+{
+	double		move_speed;
+	double		rot_speed;
+}                t_settings;
+
 typedef struct s_cub
 {
 	t_map		*map;
@@ -105,6 +111,7 @@ typedef struct s_cub
 	void		*win;
 	t_image		*images;
 	t_image		*window_image;
+	t_settings	settings;
 	t_keys		keys;
 	t_player	player;
 }				t_cub;
@@ -126,6 +133,7 @@ typedef struct s_cub
 // line_height; Projected wall height on screen
 // draw_start; Top pixel of the wall on screen
 // draw_end; Bottom pixel of the wall on screen
+
 typedef struct s_ray
 {
 	double		camera_x;
@@ -174,11 +182,16 @@ int				validate_map(char **map);
 
 /////////////////////////////////////render
 t_cub			*init_cub(t_texture *node, t_map *map);
-int				init_mlx(t_cub *cub);
+void			init_mlx(t_cub *cub);
+void			init_graphics(t_cub *cub);
 
 void			free_cub(t_cub *cub);
-int				handle_keyrelease(int keycode, t_cub *cub);
-int				handle_keypress(int keycode, t_cub *cub);
+int		close_window(t_cub *cub);
+int			handle_keyrelease(int keycode, t_cub *cub);
+int			handle_keypress(int keycode, t_cub *cub);
+
+void	update_player(t_cub *cub);
+int		render_scene(t_cub *cub);
 
 /////////////////////////////////////after_parsing
 // ............init_map_player.c

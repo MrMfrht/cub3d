@@ -56,15 +56,22 @@ int	render_textures(t_cub *cub)
 				&cub->images[i].width, &cub->images[i].height);
 		// ptr to the image in memory
 		if (!cub->images[i].img_ptr)
+		{
+			free(text_paths);
 			return (1);
+		}
 		cub->images[i].img_data = mlx_get_data_addr(cub->images[i].img_ptr,
 				&cub->images[i].bpp, &cub->images[i].line_len,
 				&cub->images[i].endian);
 		// ptr to the actual pixel data (raw bytes) of the image in memory
 		if (!cub->images[i].img_data)
+		{
+			free(text_paths);
 			return (1);
+		}
 		i++;
 	}
+	free(text_paths);
 	return (0);
 }
 
@@ -100,6 +107,21 @@ t_cub	*init_cub(t_texture *node, t_map *map)
 	cub->mlx = NULL;
 	cub->win = NULL;
 	init_cub_images(cub);
+	/* allocate window image structure and set defaults */
+	cub->window_image = malloc(sizeof(t_image));
+	if (cub->window_image)
+	{
+		cub->window_image->width = SCREEN_WIDTH;
+		cub->window_image->height = SCREEN_HEIGHT;
+		cub->window_image->img_ptr = NULL;
+		cub->window_image->img_data = NULL;
+		cub->window_image->bpp = 0;
+		cub->window_image->line_len = 0;
+		cub->window_image->endian = 0;
+	}
+	/* default movement settings */
+	cub->settings.move_speed = 0.08;
+	cub->settings.rot_speed = 0.06;
 	return (cub);
 }
 
@@ -156,32 +178,9 @@ void	init_graphics(t_cub *cub)
 	mlx_hook(cub->win, 17, 0, close_window, cub);
 	mlx_hook(cub->win, 2, 1L << 0, handle_keypress, cub);
 	mlx_hook(cub->win, 3, 1L << 1, handle_keyrelease, cub);
+	if (render_textures(cub))
+		error_exit(cub, "Error: Failed to load texture images");
 	draw_texture_debug(cub);
 }
 
-int	main(void)
-{
-	t_cub *cub;
-
-	// Allocate and initialize cub structure
-	cub = malloc(sizeof(t_cub));
-	if (!cub)
-	{
-		perror("Error\nMalloc failed");
-		return (1);
-	}
-	// Initialize all pointers to NULL
-	cub->map = NULL;
-	cub->texture = NULL;
-	cub->mlx = NULL;
-	cub->win = NULL;
-	cub->images = NULL;
-
-	// Initialize graphics (mlx and window)
-	init_graphics(cub);
-
-	// Start the event loop
-	mlx_loop(cub->mlx);
-
-	return (0);
-}
+/* test main removed - use project `main.c` instead */

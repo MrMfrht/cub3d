@@ -15,7 +15,7 @@
 int	handle_keypress(int keycode, t_cub *cub)
 {
 	if (keycode == KEY_ESC)
-		cub->keys.esc = 1;
+		close_window(cub);
 	else if (keycode == KEY_W)
 		cub->keys.w = 1;
 	else if (keycode == KEY_S)

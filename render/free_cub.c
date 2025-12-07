@@ -12,48 +12,9 @@
 
 #include "../cub3d.h"
 
-void	free_map(t_map *map)
-{
-	int	i;
-
-	if (!map)
-		return ;
-	if (map->map2d)
-	{
-		i = 0;
-		while (i < map->height && map->map2d[i])
-		{
-			free(map->map2d[i]);
-			i++;
-		}
-		free(map->map2d);
-	}
-	free(map);
-}
-
-static void	free_texture_paths(t_texture *texture)
-{
-	if (texture->no)
-		free(texture->no);
-	if (texture->so)
-		free(texture->so);
-	if (texture->we)
-		free(texture->we);
-	if (texture->ea)
-		free(texture->ea);
-}
-
-void	free_texture(t_texture *texture)
-{
-	if (!texture)
-		return ;
-	free_texture_paths(texture);
-	if (texture->f)
-		free(texture->f);
-	if (texture->c)
-		free(texture->c);
-	free(texture);
-}
+/* Reuse parsing-provided free functions: */
+/* - free_tmap(t_map *map) frees map node
+   - free_texture(t_texture *texture) frees texture node */
 
 void	free_image(void *mlx, t_image *image)
 {
@@ -83,7 +44,7 @@ void	free_images_array(void *mlx, t_image *images, int count)
 static void	free_cub_resources(t_cub *cub)
 {
 	if (cub->map)
-		free_map(cub->map);
+		free_tmap(cub->map);
 	if (cub->texture)
 		free_texture(cub->texture);
 	if (cub->images)
@@ -92,19 +53,21 @@ static void	free_cub_resources(t_cub *cub)
 		free_image(cub->mlx, cub->window_image);
 }
 
-// void	free_cub(t_cub *cub)
-// {
-// 	if (!cub)
-// 		return ;
-// 	free_cub_resources(cub);
-// 	if (cub->win && cub->mlx)
-// 		mlx_destroy_window(cub->mlx, cub->win);
-// 	if (cub->mlx)
-// 	{
-// 		mlx_destroy_display(cub->mlx);
-// 		free(cub->mlx);
-// 	}
-// 	free(cub);
-// }
+void	free_cub(t_cub *cub)
+{
+	if (!cub)
+		return ;
+	free_cub_resources(cub);
+	if (cub->win && cub->mlx)
+		mlx_destroy_window(cub->mlx, cub->win);
+	if (cub->mlx)
+	{
+#ifdef __linux__
+		mlx_destroy_display(cub->mlx);
+		free(cub->mlx);
+#endif
+	}
+	free(cub);
+}
 
 

@@ -46,3 +46,53 @@ void	print_map(char **map)
 	}
 }
 
+// main moved from testing_main.c
+int	main(int argc, char **argv)
+{
+	char		**input;
+	t_texture	*node_tex;
+	t_map		*map;
+	t_cub		*cub;
+	t_player	player;
+
+	if (argc != 2)
+		return (printf("Error\nUsage: ./cub3D map.cub\n"), 1);
+
+	input = read_from_file(argv[1]);
+	if (!input)
+		return (printf("Error reading file\n"), 1);
+
+	node_tex = create_texture();
+	if (get_texture(input, node_tex) < 0)
+		return (free_array(input), free_texture(node_tex), 1);
+
+	if (is_valid_map(input) < 0)
+		return (free_array(input), free_texture(node_tex), 1);
+
+	map = init_map(input);
+	player = init_player(map);
+
+	cub = init_cub(node_tex, map);
+	cub->player = player;
+
+	init_graphics(cub);
+
+	// Draw initial frame
+	render_scene(cub);
+
+	// Hooks
+	mlx_hook(cub->win, 2, 1L << 0, handle_keypress, cub);
+	mlx_hook(cub->win, 3, 1L << 1, handle_keyrelease, cub);
+	mlx_loop_hook(cub->mlx, render_scene, cub);
+
+	mlx_loop(cub->mlx);
+
+	// Cleanup (never reached in typical MLX loop)
+	free_tmap(map);
+	free_array(input);
+	free_texture(node_tex);
+	free_cub(cub);
+
+	return (0);
+}
+

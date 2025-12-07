@@ -108,6 +108,14 @@ t_cub	*init_cub(t_texture *node, t_map *map)
 	cub->window_image = NULL;
 	cub->mlx = NULL;
 	cub->win = NULL;
+	/* initialize key states to zero to avoid garbage values */
+	cub->keys.w = 0;
+	cub->keys.s = 0;
+	cub->keys.a = 0;
+	cub->keys.d = 0;
+	cub->keys.left = 0;
+	cub->keys.right = 0;
+	cub->keys.esc = 0;
 	return (cub);
 }
 
@@ -121,6 +129,111 @@ void	init_graphics(t_cub *cub)
 // -------------------- Render scene --------------------
 int	render_scene(t_cub *cub)
 {
+	/* Update player movement & rotation from key state */
+	void	update_player(t_cub *cub)
+	{
+		double move_speed = 0.08; /* movement speed per frame */
+		double rot_speed = 0.06;  /* rotation speed (radians) per frame */
+		double new_x;
+		double new_y;
+		double cur_x;
+		double cur_y;
+
+		/* require valid map */
+		if (!cub || !cub->map || !cub->map->map2d)
+			return ;
+
+		/* Exit on ESC */
+		if (cub->keys.esc)
+		{
+			free_tmap(cub->map);
+			free_cub(cub);
+			exit(0);
+		}
+
+		/* Forward with per-axis collision (sliding) */
+		cur_x = cub->player.x;
+		cur_y = cub->player.y;
+		if (cub->keys.w)
+		{
+			new_x = cur_x + cub->player.dir_x * move_speed;
+			new_y = cur_y + cub->player.dir_y * move_speed;
+			int ix_newx = (int)new_x;
+			int iy_newy = (int)new_y;
+			int ix_curx = (int)cur_x;
+			int iy_cury = (int)cur_y;
+			/* X axis check: can we move to new_x while staying in current row? */
+			if (ix_newx >= 0 && ix_newx < cub->map->width && iy_cury >= 0 && iy_cury < cub->map->height
+				&& cub->map->map2d[iy_cury][ix_newx] != '1')
+				cub->player.x = new_x;
+			/* Y axis check: can we move to new_y while staying in current column? */
+			if (iy_newy >= 0 && iy_newy < cub->map->height && ix_curx >= 0 && ix_curx < cub->map->width
+				&& cub->map->map2d[iy_newy][ix_curx] != '1')
+				cub->player.y = new_y;
+		}
+		/* Backward with per-axis collision (sliding) */
+		if (cub->keys.s)
+		{
+			new_x = cur_x - cub->player.dir_x * move_speed;
+			new_y = cur_y - cub->player.dir_y * move_speed;
+			int ix_newx = (int)new_x;
+			int iy_newy = (int)new_y;
+			int ix_curx = (int)cur_x;
+			int iy_cury = (int)cur_y;
+			if (ix_newx >= 0 && ix_newx < cub->map->width && iy_cury >= 0 && iy_cury < cub->map->height
+				&& cub->map->map2d[iy_cury][ix_newx] != '1')
+				cub->player.x = new_x;
+			if (iy_newy >= 0 && iy_newy < cub->map->height && ix_curx >= 0 && ix_curx < cub->map->width
+				&& cub->map->map2d[iy_newy][ix_curx] != '1')
+				cub->player.y = new_y;
+		}
+		/* Strafe left with per-axis collision */
+		if (cub->keys.a)
+		{
+			new_x = cur_x - cub->player.plane_x * move_speed;
+			new_y = cur_y - cub->player.plane_y * move_speed;
+			int ix_newx = (int)new_x;
+			int iy_newy = (int)new_y;
+			int ix_curx = (int)cur_x;
+			int iy_cury = (int)cur_y;
+			if (ix_newx >= 0 && ix_newx < cub->map->width && iy_cury >= 0 && iy_cury < cub->map->height
+				&& cub->map->map2d[iy_cury][ix_newx] != '1')
+				cub->player.x = new_x;
+			if (iy_newy >= 0 && iy_newy < cub->map->height && ix_curx >= 0 && ix_curx < cub->map->width
+				&& cub->map->map2d[iy_newy][ix_curx] != '1')
+				cub->player.y = new_y;
+		}
+		/* Strafe right with per-axis collision */
+		if (cub->keys.d)
+		{
+			new_x = cur_x + cub->player.plane_x * move_speed;
+			new_y = cur_y + cub->player.plane_y * move_speed;
+			int ix_newx = (int)new_x;
+			int iy_newy = (int)new_y;
+			int ix_curx = (int)cur_x;
+			int iy_cury = (int)cur_y;
+			if (ix_newx >= 0 && ix_newx < cub->map->width && iy_cury >= 0 && iy_cury < cub->map->height
+				&& cub->map->map2d[iy_cury][ix_newx] != '1')
+				cub->player.x = new_x;
+			if (iy_newy >= 0 && iy_newy < cub->map->height && ix_curx >= 0 && ix_curx < cub->map->width
+				&& cub->map->map2d[iy_newy][ix_curx] != '1')
+				cub->player.y = new_y;
+		}
+		/* Rotation: left/right */
+		if (cub->keys.left || cub->keys.right)
+		{
+			double rot = cub->keys.left ? -rot_speed : rot_speed;
+			double old_dir_x = cub->player.dir_x;
+			double old_plane_x = cub->player.plane_x;
+			cub->player.dir_x = cub->player.dir_x * cos(rot) - cub->player.dir_y * sin(rot);
+			cub->player.dir_y = old_dir_x * sin(rot) + cub->player.dir_y * cos(rot);
+			cub->player.plane_x = cub->player.plane_x * cos(rot) - cub->player.plane_y * sin(rot);
+			cub->player.plane_y = old_plane_x * sin(rot) + cub->player.plane_y * cos(rot);
+		}
+	}
+
+	update_player(cub);
+
 	draw_floor_ceiling(cub);
 	ray_casting(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win,
