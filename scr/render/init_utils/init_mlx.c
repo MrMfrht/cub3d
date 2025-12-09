@@ -6,23 +6,11 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 13:28:46 by mofarhat          #+#    #+#             */
-/*   Updated: 2025/12/09 16:28:08 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 17:40:35 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../cub3d.h"
-
-char	**init_texture_path(t_cub *cub)
-{
-	char	**text_paths;
-
-	text_paths = malloc(4 * sizeof(char *));
-	text_paths[0] = cub->texture->we;
-	text_paths[1] = cub->texture->ea;
-	text_paths[2] = cub->texture->no;
-	text_paths[3] = cub->texture->so;
-	return (text_paths);
-}
 
 void	error_exit(t_cub *cub, char *s)
 {

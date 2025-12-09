@@ -1,0 +1,16 @@
+NO                   ./image/green_wall.xpm
+
+      SO        ./image/green_wall.xpm
+
+   WE ./image/stone_wall.xpm
+
+EA  ./image/stone_wall.xpm  
+
+C 0, 204, 255
+F 101, 67, 33
+
+111111
+100101
+101001
+1100N1
+111111

@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:08:12 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/09 16:25:42 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 17:25:22 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	parse_texture_path(char *line, t_texture *node, char **texture)
 				trim), free(trim), -1);
 	fd = open(trim, O_RDONLY);
 	if (fd < 0)
-		return (close(fd), free_texture(node), free(line),
+		return (free_texture(node),
 			printf("Error\nthe \"%s\" can't open\n", trim), free(trim), -1);
 	close(fd);
 	if (!(*texture))

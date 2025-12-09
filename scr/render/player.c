@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 00:00:00 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/09 16:30:00 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 17:36:07 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static void	handle_rotation(t_cub *cub, double rot_speed)
 static void	handle_movement(t_cub *cub, double move_speed)
 {
 	if (cub->keys.w)
-		move_along_vector(cub, cub->player.dir_x, cub->player.dir_y, move_speed);
+		move_along_vector(cub, cub->player.dir_x,
+			cub->player.dir_y, move_speed);
 	if (cub->keys.s)
 		move_along_vector(cub, -cub->player.dir_x, -cub->player.dir_y,
 			move_speed);
