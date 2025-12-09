@@ -6,11 +6,11 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 14:17:00 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/09 13:26:43 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 16:25:42 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 int	check_cub(char *str)
 {

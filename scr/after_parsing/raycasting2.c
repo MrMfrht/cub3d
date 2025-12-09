@@ -6,11 +6,11 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 10:10:23 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/09 12:53:18 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 16:25:42 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 // Correct the wall distance (perpendicular, not diagonal)
 // Calculate projected line height based on distance

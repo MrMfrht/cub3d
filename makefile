@@ -1,22 +1,26 @@
 SCR		=	get_next_line_utils.c\
 			get_next_line.c\
-			parsing/get_input.c\
-			parsing/check.c\
-			parsing/get_texture.c\
-			parsing/utils.c\
-			parsing/get_map.c\
-			parsing/get_rectangle.c\
-			parsing/validation/validate.c\
-			after_parsing/init_map_player.c\
-			after_parsing/raycasting1.c\
-			after_parsing/raycasting2.c\
-			after_parsing/raycasting3.c\
-			render/key_press.c\
-			render/render.c\
-			render/free_cub.c\
-			render/init_utils/init_mlx.c\
-			render/player.c\
-			main.c\
+			scr/parsing/get_input.c\
+			scr/parsing/check.c\
+			scr/parsing/get_texture.c\
+			scr/parsing/utils.c\
+			scr/parsing/get_map.c\
+			scr/parsing/get_rectangle.c\
+			scr/parsing/validation/validate.c\
+			scr/parsing/validation/validate_utils.c\
+			scr/parsing/validation/validate_utils2.c\
+			scr/after_parsing/init_map_player.c\
+			scr/after_parsing/raycasting1.c\
+			scr/after_parsing/raycasting2.c\
+			scr/after_parsing/raycasting3.c\
+			scr/render/key_press.c\
+			scr/render/render.c\
+			scr/render/free_cub.c\
+			scr/render/init_utils/init_mlx.c\
+			scr/render/init_utils/init_mlx2.c\
+			scr/render/init_utils/init_cub.c\
+			scr/render/player.c\
+			scr/main.c\
 
 OBJS	=	${SCR:.c=.o}
 

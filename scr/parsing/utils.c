@@ -6,11 +6,11 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 11:01:31 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/09 15:12:34 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 16:25:42 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 // Each color (red, green, blue) is stored on 8 bits
 // r (16->23 bits), g (8–>15 bits), b (0->7 bits)

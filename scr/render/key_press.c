@@ -6,11 +6,11 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 15:08:28 by mofarhat          #+#    #+#             */
-/*   Updated: 2025/11/11 11:57:41 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 17:00:00 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 int	handle_keypress(int keycode, t_cub *cub)
 {
@@ -47,6 +47,5 @@ int	handle_keyrelease(int keycode, t_cub *cub)
 		cub->keys.left = 0;
 	else if (keycode == KEY_RIGHT)
 		cub->keys.right = 0;
-	printf("postion at x:%f ,y: %f\n", cub->player.x, cub->player.y);
 	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 13:42:02 by mofarhat          #+#    #+#             */
-/*   Updated: 2025/12/09 16:05:52 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 16:53:07 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 /* Reuse parsing-provided free functions: */
 /* - free_tmap(t_map *map) frees map node
@@ -64,12 +64,8 @@ void	free_cub(t_cub *cub)
 		mlx_destroy_window(cub->mlx, cub->win);
 	if (cub->mlx)
 	{
-#ifdef __linux__
 		mlx_destroy_display(cub->mlx);
 		free(cub->mlx);
-#endif
 	}
 	free(cub);
 }
-
-

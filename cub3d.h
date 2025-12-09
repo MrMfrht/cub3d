@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/09 15:45:26 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 16:53:07 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef struct s_map
 	int			width;
 	int			height;
 }				t_map;
+
+typedef struct s_dim
+{
+	int			width;
+	int			height;
+}				t_dim;
 
 // img_ptr:pointer to image in MLX
 // img_data:pointer to pixel memory (raw bytes)
@@ -173,7 +179,7 @@ void			free_texture(t_texture *node);
 int				check_all_texture(t_texture *node);
 int				is_valid_map(char **input);
 int				find_map_start(char **input);
-int is_border_valid(char *line);
+int				is_border_valid(char *line);
 // ...........get_input.c------------------------
 void			free_array(char **array);
 char			**array_join(char **old_array, char *str_add);
@@ -185,13 +191,26 @@ char			**get_map(char **input);
 // ............get_rectangle.c--------------------------
 char			**get_rectangle_map(char **input);
 // ............validation
+int				map_max_width(char **map);
+int				map_height(char **map);
+char			*pad_line_with_spaces(char *line, int max_map_width);
+void			pad_map_with_spaces(char **map);
+int				is_valid_char(char c);
+int				is_player_char(char c);
+int				validate_characters_and_player(char **map);
+char			**duplicate_map(char **map);
+void			free_map(char **map);
 int				find_player_position(char **map, int *x, int *y);
 int				validate_map(char **map);
 
 /////////////////////////////////////render
 t_cub			*init_cub(t_texture *node, t_map *map);
+int				init_cub_images(t_cub *cub);
 void			init_mlx(t_cub *cub);
 void			init_graphics(t_cub *cub);
+void			error_exit(t_cub *cub, char *s);
+int				render_textures(t_cub *cub);
+void			draw_texture_debug(t_cub *cub);
 
 void			free_cub(t_cub *cub);
 int				close_window(t_cub *cub);

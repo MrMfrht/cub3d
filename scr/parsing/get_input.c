@@ -6,11 +6,11 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:07:24 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/21 11:53:52 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 16:25:42 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 // free array
 void	free_array(char **array)

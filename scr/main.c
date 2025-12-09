@@ -1,0 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/15 14:31:13 by fdaher            #+#    #+#             */
+/*   Updated: 2025/12/09 17:04:01 by fdaher           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub3d.h"
+
+// void	print_node_texture(t_texture *node)
+// {
+// 	if (node->no)
+// 		printf("no: %s\n", node->no);
+// 	if (node->so)
+// 		printf("so: %s\n", node->so);
+// 	if (node->we)
+// 		printf("we: %s\n", node->we);
+// 	if (node->ea)
+// 		printf("ea: %s\n", node->ea);
+// 	if (node->f)
+// 		printf("f=%d,%d,%d f_value=%d\n", node->f->red, node->f->green,
+// 			node->f->blue, node->f->value);
+// 	if (node->c)
+// 		printf("c=%d,%d,%d c_value=%d\n", node->c->red, node->c->green,
+// 			node->c->blue, node->c->value);
+// }
+
+// void	print_map(char **map)
+// {
+// 	int		i;
+// 	char	**temp;
+
+// 	i = 0;
+// 	if (!map)
+// 		return ;
+// 	temp = map;
+// 	while (temp[i])
+// 	{
+// 		printf("->%s<-\n", temp[i]);
+// 		i++;
+// 	}
+// }
+
+static void	setup_hooks(t_cub *cub)
+{
+	render_scene(cub);
+	mlx_hook(cub->win, 2, 1L << 0, handle_keypress, cub);
+	mlx_hook(cub->win, 3, 1L << 1, handle_keyrelease, cub);
+	mlx_loop_hook(cub->mlx, render_scene, cub);
+	mlx_loop(cub->mlx);
+}
+
+static int	init_game(char **input, t_texture **node_tex, t_cub **cub)
+{
+	t_map		*map;
+	t_player	player;
+
+	*node_tex = create_texture();
+	if (get_texture(input, *node_tex) < 0)
+		return (free_array(input), -1);
+	if (is_valid_map(input) < 0)
+		return (free_array(input), free_texture(*node_tex), -1);
+	map = init_map(input);
+	player = init_player(map);
+	*cub = init_cub(*node_tex, map);
+	(*cub)->input = input;
+	(*cub)->player = player;
+	init_graphics(*cub);
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	char		**input;
+	t_texture	*node_tex;
+	t_cub		*cub;
+
+	if (argc != 2 || check_cub(argv[1]) == 0)
+		return (printf("Error\nUsage: ./cub3D map.cub\n"), 1);
+	input = read_from_file(argv[1]);
+	if (!input)
+		return (printf("Error reading file\n"), 1);
+	if (init_game(input, &node_tex, &cub) < 0)
+		return (1);
+	setup_hooks(cub);
+	free_texture(node_tex);
+	free_cub(cub);
+	return (0);
+}

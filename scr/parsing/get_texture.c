@@ -6,11 +6,11 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:08:12 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/09 15:03:18 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 16:25:42 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 static int	is_color(char *line)
 {

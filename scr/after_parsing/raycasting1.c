@@ -6,11 +6,11 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:06:11 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/09 11:20:27 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 16:25:42 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 // Each pixel = (y * bytes_per_line) + (x * bytes_per_pixel)
 // Each row in memory has line_len bytes.
