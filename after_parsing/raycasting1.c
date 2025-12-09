@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:06:11 by fdaher            #+#    #+#             */
-/*   Updated: 2025/11/08 13:43:03 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 11:20:27 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,15 +121,9 @@ void	perform_dda(t_ray *r, t_cub *cub)
 			r->map_y += r->step_y;
 			r->side = 1;
 		}
-		/* Check bounds before indexing the map to avoid segfaults */
 		if (r->map_x < 0 || r->map_x >= cub->map->width
-			|| r->map_y < 0 || r->map_y >= cub->map->height)
-		{
-			/* Treat out-of-bounds as a wall hit to stop the ray */
-			hit = 1;
-			break;
-		}
-		if (cub->map->map2d[r->map_y][r->map_x] == '1')
+			|| r->map_y < 0 || r->map_y >= cub->map->height
+			|| cub->map->map2d[r->map_y][r->map_x] == '1')
 			hit = 1;
 	}
 }

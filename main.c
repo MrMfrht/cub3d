@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:31:13 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/05 08:39:19 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:05:21 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,16 @@ int	main(int argc, char **argv)
 	t_cub		*cub;
 	t_player	player;
 
-	if (argc != 2)
+	if (argc != 2 ||check_cub(argv[1]) == 0)                        //add check_cub
 		return (printf("Error\nUsage: ./cub3D map.cub\n"), 1);
-
+	
 	input = read_from_file(argv[1]);
 	if (!input)
 		return (printf("Error reading file\n"), 1);
-
+		
 	node_tex = create_texture();
 	if (get_texture(input, node_tex) < 0)
-		return (free_array(input), free_texture(node_tex), 1);
-
+		return (free_array(input), 1);                   //remove free_texture
 	if (is_valid_map(input) < 0)
 		return (free_array(input), free_texture(node_tex), 1);
 
@@ -73,6 +72,7 @@ int	main(int argc, char **argv)
 	player = init_player(map);
 
 	cub = init_cub(node_tex, map);
+	cub->input = input;
 	cub->player = player;
 
 	init_graphics(cub);
@@ -89,7 +89,7 @@ int	main(int argc, char **argv)
 
 	// Cleanup (never reached in typical MLX loop)
 	free_tmap(map);
-	free_array(input);
+	
 	free_texture(node_tex);
 	free_cub(cub);
 

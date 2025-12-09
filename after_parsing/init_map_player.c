@@ -6,13 +6,13 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:10:44 by fdaher            #+#    #+#             */
-/*   Updated: 2025/11/04 09:13:04 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 14:02:17 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	height_of_map(char **map)
+int	height_of_map(char **map)
 {
 	int	i;
 

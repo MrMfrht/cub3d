@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 11:01:47 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/21 11:48:02 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 14:47:13 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ static int	process_map_line(char **input, int i, char ***map)
 	char	*trim_line;
 	int		j;
 
-	if (is_empty_line(input[i]) && input[i + 1]
-		&& !is_empty_line(input[i + 1]))
+	if (is_empty_line(input[i]) && input[i + 1] && !is_empty_line(input[i + 1]))
 		return (printf("Error\nEmptyline map\n"), free_array(*map), -1);
 	if (is_invalid_line(input[i]))
 		return (printf("Error\nInvalid character in map line: \"%s\"\n",
@@ -70,7 +69,7 @@ static int	process_map_line(char **input, int i, char ***map)
 		if (trim_line[ft_strlen(trim_line) - 1] != '1')
 			return (printf("Error\nMap not closed: %s\n", trim_line),
 				free(trim_line), free_array(*map), -1);
-		free (trim_line);
+		free(trim_line);
 		*map = array_join(*map, input[i]);
 	}
 	else if (input[i][j])
@@ -79,11 +78,12 @@ static int	process_map_line(char **input, int i, char ***map)
 	return (0);
 }
 
-// get the map if it doesn't contain \n and starting by 1 
+// get the map if it doesn't contain \n and starting by 1
 char	**get_map(char **input)
 {
 	int		i;
 	char	**map;
+	int		map_height;
 
 	i = 0;
 	map = NULL;
@@ -96,6 +96,9 @@ char	**get_map(char **input)
 			return (NULL);
 		i++;
 	}
+	map_height = height_of_map(map);
+	if (!is_border_valid(map[0]) || !is_border_valid(map[map_height - 1]))
+		return (printf("Error\nMap not closed\n"), free_array(map), NULL);
 	return (map);
 }
 

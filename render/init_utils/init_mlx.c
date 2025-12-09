@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 13:28:46 by mofarhat          #+#    #+#             */
-/*   Updated: 2025/12/05 08:33:01 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:06:50 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ t_cub	*init_cub(t_texture *node, t_map *map)
 	cub = malloc(sizeof(t_cub));
 	cub->map = map;
 	cub->texture = node;
+	cub->input = NULL;
 	cub->mlx = NULL;
 	cub->win = NULL;
 	init_cub_images(cub);

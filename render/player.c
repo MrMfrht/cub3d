@@ -83,4 +83,3 @@ void	update_player(t_cub *cub)
     if (cub->keys.left || cub->keys.right)
         handle_rotation(cub, rot_speed);
 }
-

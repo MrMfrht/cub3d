@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:08:12 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/21 15:03:50 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 15:03:18 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	parse_color(char *line, t_texture *node, t_color **color)
 	rgb = ft_split(line, ',');
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
 		return (free_array(rgb), free_texture(node),
-			printf("Error\nbad form(a,b,c)"), -1);
+			printf("Error\nbad form(a,b,c)\n"), -1);
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
 	b = ft_atoi(rgb[2]);
@@ -127,6 +127,7 @@ int	get_texture(char **array, t_texture *node)
 	}
 	return (check_all_texture(node));
 }
+
 // int	get_texture(char **array, t_texture *node)
 // {
 // 	int		i;

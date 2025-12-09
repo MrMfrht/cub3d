@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 13:42:02 by mofarhat          #+#    #+#             */
-/*   Updated: 2025/11/08 13:40:40 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 16:05:52 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	free_images_array(void *mlx, t_image *images, int count)
 
 static void	free_cub_resources(t_cub *cub)
 {
+	if (cub->input)
+		free_array(cub->input);
 	if (cub->map)
 		free_tmap(cub->map);
 	if (cub->texture)

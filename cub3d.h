@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mofarhat <mofarhat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/05 18:03:24 by mofarhat         ###   ########.fr       */
+/*   Updated: 2025/12/09 15:45:26 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ typedef struct s_image
 	char		*img_data;
 	int			width;
 	int			height;
-	int bpp;      //
-	int line_len; //
-	int endian;   //
+	int			bpp;
+	int			line_len;
+	int			endian;
 }				t_image;
 
 typedef struct s_color
@@ -101,12 +101,13 @@ typedef struct s_settings
 {
 	double		move_speed;
 	double		rot_speed;
-}                t_settings;
+}				t_settings;
 
 typedef struct s_cub
 {
 	t_map		*map;
 	t_texture	*texture;
+	char		**input;
 	void		*mlx;
 	void		*win;
 	t_image		*images;
@@ -115,6 +116,12 @@ typedef struct s_cub
 	t_keys		keys;
 	t_player	player;
 }				t_cub;
+
+typedef struct s_xy
+{
+	int		x;
+	int		y;
+}	t_xy;
 
 // camera_x;    X-coordinate on camera plane (-1 to 1)
 // ray_dir_x;  Ray direction vector X
@@ -166,6 +173,7 @@ void			free_texture(t_texture *node);
 int				check_all_texture(t_texture *node);
 int				is_valid_map(char **input);
 int				find_map_start(char **input);
+int is_border_valid(char *line);
 // ...........get_input.c------------------------
 void			free_array(char **array);
 char			**array_join(char **old_array, char *str_add);
@@ -186,15 +194,16 @@ void			init_mlx(t_cub *cub);
 void			init_graphics(t_cub *cub);
 
 void			free_cub(t_cub *cub);
-int		close_window(t_cub *cub);
-int			handle_keyrelease(int keycode, t_cub *cub);
-int			handle_keypress(int keycode, t_cub *cub);
+int				close_window(t_cub *cub);
+int				handle_keyrelease(int keycode, t_cub *cub);
+int				handle_keypress(int keycode, t_cub *cub);
 
-void	update_player(t_cub *cub);
-int		render_scene(t_cub *cub);
+void			update_player(t_cub *cub);
+int				render_scene(t_cub *cub);
 
 /////////////////////////////////////after_parsing
 // ............init_map_player.c
+int				height_of_map(char **map);
 t_map			*init_map(char **input);
 void			free_tmap(t_map *map);
 t_player		init_player(t_map *map);
@@ -205,8 +214,11 @@ void			init_ray(t_ray *r, t_cub *cub, int x);
 void			perform_dda(t_ray *r, t_cub *cub);
 // .............raycasting2.c
 void			calculate_wall_distance(t_ray *r, t_player *p, t_cub *cub);
-void			draw_wall_slice(t_cub *cub, t_ray *r, int x);
+t_image			*select_texture(t_cub *cub, t_ray *r);
+int				get_wall_tex_x(t_cub *cub, t_ray *r, t_image *tex);
 void			ray_casting(t_cub *cub);
+// .............raycasting3.c
+void			draw_wall_slice(t_cub *cub, t_ray *r, int x);
 
 // main.c
 

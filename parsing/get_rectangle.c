@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 11:56:26 by fdaher            #+#    #+#             */
-/*   Updated: 2025/10/21 14:54:05 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 15:27:37 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,20 @@ char	**get_rectangle_map(char **input)
 	return (rect);
 }
 
+int	is_border_valid(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '1' && line[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 // char	**get_rectangle_map(char **input)
 // {
 // 	char	**rect;
@@ -115,6 +129,6 @@ char	**get_rectangle_map(char **input)
 // 	map = get_map(input);
 // 	change_space_to_one;
 // 	rect = add_end_one(map, max_len);
-// 	free_map;
+// 	free_array(map);
 // 	return (rect);
 // }

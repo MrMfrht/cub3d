@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 11:01:31 by fdaher            #+#    #+#             */
-/*   Updated: 2025/11/11 10:59:10 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/09 15:12:34 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,18 @@ int	find_map_start(char **input)
 		i++;
 	}
 	return (-1);
+}
+
+int	is_all_one(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != 1 && line[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
 }
