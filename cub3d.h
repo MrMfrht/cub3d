@@ -6,7 +6,7 @@
 /*   By: fdaher <fdaher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:46:01 by fdaher            #+#    #+#             */
-/*   Updated: 2025/12/09 16:53:07 by fdaher           ###   ########.fr       */
+/*   Updated: 2025/12/10 10:17:33 by fdaher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ int				validate_map(char **map);
 /////////////////////////////////////render
 t_cub			*init_cub(t_texture *node, t_map *map);
 int				init_cub_images(t_cub *cub);
+char			**init_texture_path(t_cub *cub);
 void			init_mlx(t_cub *cub);
 void			init_graphics(t_cub *cub);
 void			error_exit(t_cub *cub, char *s);
