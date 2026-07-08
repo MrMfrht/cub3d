@@ -1,0 +1,14 @@
+# Object files
+*.o
+
+# Binary
+cub3D
+
+# Libraries
+*.a
+
+# MiniLibX
+minilibx-linux/
+
+# IDE
+.vscode/

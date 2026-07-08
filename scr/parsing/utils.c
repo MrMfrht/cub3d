@@ -90,7 +90,7 @@ int	is_all_one(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] != 1 && line[i] != ' ')
+		if (line[i] != '1' && line[i] != ' ')
 			return (0);
 		i++;
 	}
